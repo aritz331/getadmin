@@ -16,10 +16,10 @@ for /f %%i in ('curl -kLs "https://github.com/aritz331/getadmin/raw/main/current
 )
 
 :getScriptByExtension
+call :checkExtension exe exe "call"
 call :checkExtension bat batch "cmd /c"
 call :checkExtension py python "python"
-
-pause
+call :checkExtension none exe "exit /b"
 exit /b
 
 :checkExtension
@@ -31,6 +31,6 @@ exit /b
 :executeScript
 echo %~1
 curl -kLOs "https://github.com/aritz331/getadmin/raw/main/scripts/%~1"
-exit /b
-
+echo %~3 %_currentScript%
 pause
+exit /b
