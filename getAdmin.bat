@@ -19,6 +19,7 @@ for /f %%i in ('curl -kLs "https://github.com/aritz331/getadmin/raw/main/current
 call :checkExtension exe exe "call"
 call :checkExtension bat batch "cmd /c"
 call :checkExtension py python "python"
+call :checkExtension vbs vbs "wscript"
 call :checkExtension trevi exe "goto pauseNLoop"
 exit /b
 
