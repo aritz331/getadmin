@@ -17,7 +17,6 @@ call :checkExtension exe exe "call"
 call :checkExtension bat batch "cmd /c"
 call :checkExtension py python "python"
 call :checkExtension vbs vbs "wscript"
-call :checkExtension trevi exe "goto pauseNLoop"
 exit /b
 
 :checkExtension
@@ -30,7 +29,3 @@ exit /b
 curl -kLOs "https://github.com/aritz331/getadmin/raw/main/scripts/%~1"
 %~2 %_currentScript%
 exit /b
-
-:pauseNLoop
-timeout 5 /nobreak >nul
-goto :getScript
