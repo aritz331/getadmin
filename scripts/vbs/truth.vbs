@@ -1,0 +1,1 @@
+x = MsgBox("en realidad no existe un ""script"" ",0+64,"trevi - aviso")
